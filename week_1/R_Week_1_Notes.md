@@ -4,7 +4,7 @@
 
 - Vector index start with 1, not 0
 
-###Generate vector contains boolean to make filter for dataframe
+### Generate vector contains boolean to make filter for dataframe
 
 ```R
 # Create a vector csg.over.80, with the logical result of course.student.grade over 80
