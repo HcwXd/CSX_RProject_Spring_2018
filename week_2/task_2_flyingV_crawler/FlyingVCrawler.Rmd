@@ -1,0 +1,43 @@
+---
+title: "FlyingVCrawler"
+author: "C.W.Hu"
+date: "2018/3/15"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Code
+
+```{r}
+library(rvest)
+library(magrittr)
+library(knitr)
+
+url <- "https://www.flyingv.cc/projects?sort=hot"
+
+page.source <- read_html(url)
+
+titles <- page.source %>% html_nodes('.pcontent .title') %>% html_text(trim=TRUE)
+
+team <- page.source %>% html_nodes('.pcontent a') %>% html_text(trim=TRUE)
+
+content <- page.source %>% html_nodes('.pcontent .excerpt') %>% html_text(trim=TRUE)
+
+amount <- page.source %>% html_nodes('.downMeta .goalMoney.osmfont') %>% html_text(trim=TRUE)
+
+percent <- page.source %>% html_nodes('.downMeta .hidden-md.goalpercent') %>% html_text(trim=TRUE)
+
+day_left <- page.source %>% html_nodes('.downMeta .date.pull-right.small') %>% html_text(trim=TRUE)
+
+flyingV.df <- data.frame(titles, team,content,amount,percent,day_left)
+```
+
+## Results
+
+```{r pressure, echo=TRUE}
+kable(flyingV.df)
+```
+
