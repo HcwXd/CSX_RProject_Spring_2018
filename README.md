@@ -1,10 +1,8 @@
 ### CSX_RProject_Spring_2018
 
-> Hi, I'm David C.W Hu, currently a National Taiwan University students with a major of finance. I love building things with code! You can find my brief resume [here](https://hcwxd.github.io/). Also, I love writing articles to share things! You can find my articles on Medium [here](https://medium.com/@C.W.Hu).
+> Hi, I'm David C.W Hu, currently a National Taiwan University student with a major of finance. I love building things with code! You can find my brief resume [here](https://hcwxd.github.io/). Also, I enjoy writing articles a lot to share things! You can find my articles on Medium [here](https://medium.com/@C.W.Hu).
 >
-> Oops, this repo is for CSX_RProject_Spring_2018! I will have my notes about this courses here. Feel free to give me suggestion and advice :)
-
----
+> This repo is for CSX_RProject_Spring_2018! I will have my notes about this courses here. Feel free to give me suggestion and advice :)
 
 ## Week 1
 
