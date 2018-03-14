@@ -1,20 +1,64 @@
-## R_資料科學程式設計
+## R_Week_2_Notes
 
-### week_2
+### Data Type Conversion
 
-- course_2
-    - practice_1.R
-    - practice_1_answer.R
-    - practice_2.R
-    - practice_2_answer.R
-    - practice_3.R
-    - crawler_example
+- `as.datatype()`
+- `as.factor()`, `as.integer()`,`as.numeric()`
+- ref: https://www.statmethods.net/input/datatypes.html
 
-- task_2_example
-    - PChomeRCrawler.html
-    - PChomeRCrawler.r
-    - PChomeRCrawler.Rmd
+### Merge vector/dataframe
 
-- week_2任務
-    - 建立一命名為 `week_2(or task_2, hw_2)`的資料夾。
-    - 完成一支網站爬蟲上傳至資料夾中，繳交三種類型檔案(.R, .Rmd, .html)。 
+- `cbind(df, col1, col2)`
+- `rbind(df, row1)`
+
+### Subset()
+
+- Deletion:
+  - `df <- subset(df, select = c(-Age))`
+- Filter with condtion and show selected info:
+  - `subset(df, Height > 170 & ToeicGrade > 900, select = c(Name, ToeicGrade, Height))`
+
+### Cut()
+
+- Set interval
+
+  - ```R
+    df$ToeicLevel <- cut(x = df$ToeicGrade, 
+                         breaks = c(0, 600, 700, 800, 900, Inf),
+                         labels = c("E", "D", "C", "B", "A"))
+    ```
+
+### Iterate argument through function
+
+- `mapply(func, arg1, arg2)`
+
+### Crawler
+
+- Table element: use `readHTMLTable()` w/  `XML`
+- Other element: use `rvest` w/ `magrittr`
+
+### readHTMLTable()
+
+- `readHTMLTable(url)` return a list of dataframe
+- To access list data, use `list[[index]]` instead of  `list[index]`
+
+### rvest & magrittr
+
+- use `read_html(url)` to get html data
+
+- Get info by html class
+
+  - ```R
+    titles <- page.source %>% html_nodes('.pcontent .title') %>% html_text(trim=TRUE)
+    ```
+
+- Get links
+
+  - ```R
+    name <- page %>% html_nodes(".biz-name") %>% html_attr('href')
+    ```
+
+
+
+
+
