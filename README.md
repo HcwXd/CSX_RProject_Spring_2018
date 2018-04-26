@@ -6,102 +6,22 @@
 
 ## Week 1
 
-### R Properties
-
-- Vector index start with 1, not 0
-
-### Generate vector contains boolean to make filter for dataframe
-
-```r
-# Create a vector csg.over.80, with the logical result of course.student.grade over 80
-csg.over.80 <- course.student.grade >= 80
-# Print over 80 details
-print(paste("高於80分總人數：", length(course.student.grade[csg.over.80])))
-print(paste("高於80分座號：", names(course.student.grade[csg.over.80])))
-```
-
-### Sorted dataframe by one row/column
-
-```r
-days.position <- order(person.df$person.days)
-person.df[days.position, ]
-```
-
-### Print format
-
-```r
-print(paste(i,"x", j,"=", format(i*j, width = 2))
-```
-
-### Others
-
-- Convert string to int: `strtoi()`
-- Read from user input: `readline(prompt = "message")`
-- Spilt String: `strsplit(source, "pattern")`
-  - Notes: `strsplit()` returns a list type
-- Turn list into vector: `unlist()`
-
----
+> Task1: [Basic R practice](https://github.com/HcwXd/CSX_RProject_Spring_2018/blob/master/week_1/hw_1/hw_1_question.R)
 
 ## Week 2
 
-### Data Type Conversion
+> Task2-1: [Crawler for FlyingV Website](https://hcwxd.github.io/CSX_RProject_Spring_2018/week_2/hw2_flyingV_crawler/FlyingVCrawler.html)
+>
+> Task2-2: [Analysis for the difference in NBA score](https://hcwxd.github.io/CSX_RProject_Spring_2018/week_2/hw2_nba_crawler/NBAScoreDiffAnaysis.html)
 
-- `as.datatype()`
-- `as.factor()`, `as.integer()`,`as.numeric()`
-- ref: https://www.statmethods.net/input/datatypes.html
+## Week 3
 
-### Merge vector/dataframe
+> Task3: [FGM Analysis for differnet postion in NBA](https://hcwxd.github.io/CSX_RProject_Spring_2018/week_3/hw3_NBAplot/NBAPlot.html) 
 
-- `cbind(df, col1, col2)`
-- `rbind(df, row1)`
+## Week 4
 
-### Subset()
+> Task4: [Word Cloud Visualization for FB Post from mayor of taipei ](https://hcwxd.github.io/CSX_RProject_Spring_2018/week_4/hw4_FBPost_cloud/FBPostWordCloud.html)
 
-- Deletion:
-  - `df <- subset(df, select = c(-Age))`
-- Filter with condtion and show selected info:
-  - `subset(df, Height > 170 & ToeicGrade > 900, select = c(Name, ToeicGrade, Height))`
-
-### Cut()
-
-- Set interval
-
-  - ```r
-    df$ToeicLevel <- cut(x = df$ToeicGrade, 
-                         breaks = c(0, 600, 700, 800, 900, Inf),
-                         labels = c("E", "D", "C", "B", "A"))
-    ```
-
-### Iterate argument through function
-
-- `mapply(func, arg1, arg2)`
-
-### Crawler
-
-- Table element: use `readHTMLTable()` w/  `XML`
-- Other element: use `rvest` w/ `magrittr`
-
-### readHTMLTable()
-
-- `readHTMLTable(url)` return a list of dataframe
-- To access list data, use `list[[index]]` instead of  `list[index]`
-
-### rvest & magrittr
-
-- use `read_html(url)` to get html data
-
-- Get info by html class
-
-  - ```r
-    titles <- page.source %>% html_nodes('.pcontent .title') %>% html_text(trim=TRUE)
-    ```
-
-- Get links
-
-  - ```r
-    name <- page %>% html_nodes(".biz-name") %>% html_attr('href')
-    ```
 
 
 
