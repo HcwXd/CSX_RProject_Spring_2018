@@ -1,3 +1,11 @@
+---
+title: "FBPostWorkCloud"
+author: "C.W.Hu"
+date: "2018/4/26"
+output: html_document
+---
+
+```{r setup, include=FALSE}
 library(httr)
 library(rjson)
 library(httpuv)
@@ -15,7 +23,12 @@ library(jiebaR)
 library(RColorBrewer)
 library(wordcloud)
 library(tmcn)
+```
 
+## R Markdown
+
+
+```{r}
 prefex = "https://graph.facebook.com/v2.12/"
 
 token  = "EAACEdEose0cBAOSv0Mbv9KJ8MjaZAMxoZAUlCLJZCOf7ec0mBCUowaIuGUyu1uehpKFuivqycx6qVcklnVxIFyOCpvkvSJwokJEoAJZCc6uZClEiyhZBHgI5YRbAz8ngYZBgqG5KqaZAqHgpoW5ROuP3IzHkSsP9flRT4e1vaoQeWF354KGao1AUYqmWrMmZAysoBOZC6po8xMlAZDZD"
@@ -31,7 +44,12 @@ groups= matrix(unlist(posts$posts))
 
 filename = paste0(1, ".txt")
 write.table(groups,filename)
+```
 
+## WordCloudResult
+### 未做文字清洗的文字雲
+
+```{r}
 #未做文字清洗的文字雲
 par(family='STKaiti')
 filenames <- list.files(getwd(), pattern="*.txt")
@@ -60,6 +78,11 @@ wordcloud(freqFrame$Var1,freqFrame$Freq,
           ordered.colors=FALSE,use.r.layout=FALSE,
           fixed.asp=TRUE)
 
+```
+
+### 用 stopwordsCN() 做文字清洗的文字雲
+
+```{r}
 #用 stopwordsCN() 做文字清洗的文字雲
 par(family='STKaiti')
 filenames <- list.files(getwd(), pattern="*.txt")
@@ -89,8 +112,11 @@ wordcloud(freqFrame$Var1,freqFrame$Freq,
           rot.per=.1, colors=rainbow(length(row.names(freqFrame))),
           ordered.colors=FALSE,use.r.layout=FALSE,
           fixed.asp=TRUE)
+```
 
+### 用 stopwordsCN() 加上手動做文字清洗的文字雲
 
+```{r}
 #用 stopwordsCN() 加上手動做文字清洗的文字雲
 
 par(family='STKaiti')
@@ -142,3 +168,7 @@ wordcloud(freqFrame$Var1,freqFrame$Freq,
           rot.per=.1, colors=rainbow(length(row.names(freqFrame))),
           ordered.colors=FALSE,use.r.layout=FALSE,
           fixed.asp=TRUE)
+```
+
+## 結語
+從最後的文字雲可以發現，柯文哲市長在臉書上的發文用詞非常正面，並且相當常用「我們」來營造跟市民的親近感跟使命感。其他字頻方面，市長也常提到關於「教育」、「城市」、「價值」、「食安」等。
