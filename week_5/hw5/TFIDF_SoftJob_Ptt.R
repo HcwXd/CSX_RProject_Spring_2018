@@ -1,0 +1,115 @@
+library(bitops)
+library(httr)
+library(RCurl)
+library(XML)
+library(NLP)
+library(tm)
+library(tmcn)
+library(jiebaRD)
+library(jiebaR)
+library(dplyr)
+library(XML)
+library(knitr)
+library(Matrix)
+
+# Set keyword for crawling
+target_keywords = "美商"
+
+data <- list()
+title <- list()
+
+# Crawl all articles on PTT Soft_Job board last 20 pages
+for( i in c(1350:1370)){
+  tmp <- paste(i, '.html', sep='')
+  url <- paste('www.ptt.cc/bbs/Soft_Job/index', tmp, sep='')
+  html <- htmlParse(GET(url),encoding = "UTF-8")
+  title.list <- xpathSApply(html, "//div[@class='title']/a[@href]", xmlValue)
+  url.list <- xpathSApply(html, "//div[@class='title']/a[@href]", xmlAttrs)
+  data <- rbind(data, as.matrix(paste('www.ptt.cc', url.list, sep='')))
+  title <- rbind(title, as.matrix(title.list))
+}
+
+data <- unlist(data)
+title <- unlist(title)
+
+# Filter the post with keywords
+Job_post <- c()
+Job_post.url <- c()
+
+post <- grep(target_keywords, title)
+
+Job_post <- c(Job_post,title[post])
+
+Job_post.url <- c(Job_post.url, data[post])
+
+
+
+# Crawl all the comments
+message <- list()
+cc = worker()
+GATDF <- data.frame()
+
+for(i in c(1:length(Job_post))){
+  html <- htmlParse(GET(Job_post.url[i]),encoding = "UTF-8")
+  message.list <- xpathSApply(html, "//div[@class='push']/span[@class='f3 push-content']", xmlValue)
+  message <- unlist(message.list)
+  
+  d.corpus <- VCorpus( VectorSource(message) )
+  d.corpus <- tm_map(d.corpus, removePunctuation)
+  d.corpus <- tm_map(d.corpus, removeNumbers)
+  d.corpus <- tm_map(d.corpus, function(word) {
+    gsub("[A-Za-z0-9]", "", word)
+  })
+  
+  abc <- data.frame(table(cc[as.character(d.corpus)]))
+  colnames(abc) <- c("word", as.character(i))
+  
+  if(i == 1){
+    GATDF <- abc}
+  else{
+    GATDF <- merge(GATDF, abc, by = "word", all = T)}
+}
+
+GATDF[is.na(GATDF)] <- 0
+
+kable(head(GATDF))
+
+# Turn TDM to TF-IDF
+n <- length(Job_post)
+tf <- apply(as.matrix(GATDF[,2:(n+1)]), 2, sum)
+idfCal <- function(word_doc)
+{ 
+  log2( n / nnzero(word_doc) ) 
+}
+idf <- apply(as.matrix(GATDF[,2:(n+1)]), 1, idfCal)
+
+doc.tfidf <- GATDF
+for(x in 1:nrow(GATDF))
+{
+  for(y in 2:ncol(GATDF))
+  {
+    doc.tfidf[x,y] <- (doc.tfidf[x,y] / tf[y-1]) * idf[x]
+  }
+}
+
+# Show the data
+topwords <- subset(head(doc.tfidf[order(doc.tfidf[2], decreasing = TRUE), ]), select = c(word,`1`))
+for (i in c(3:ncol(doc.tfidf))){
+  topwords <- cbind(topwords, head(doc.tfidf[order(doc.tfidf[i], decreasing = TRUE),])[1])
+  topwords <- cbind(topwords, head(doc.tfidf[order(doc.tfidf[i], decreasing = TRUE),])[i])
+}
+kable(topwords)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
