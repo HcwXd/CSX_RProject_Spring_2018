@@ -22,6 +22,9 @@
 
 > Task4: [Word Cloud Visualization for FB Post from mayor of taipei ](https://hcwxd.github.io/CSX_RProject_Spring_2018/week_4/hw4_FBPost_cloud/FBPostWordCloud.html)
 
+## Week 5
+
+> Task5: [TF-IDF Practice for PTT Soft_Job Board](https://hcwxd.github.io/CSX_RProject_Spring_2018/week_5/hw5_TFIDF_SoftJob_Ptt/TFIDF_SoftJob_Ptt.html)
 
 
 
