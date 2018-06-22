@@ -26,6 +26,10 @@
 
 > Task5: [TF-IDF Practice for PTT Soft_Job Board](https://hcwxd.github.io/CSX_RProject_Spring_2018/week_5/hw5_TFIDF_SoftJob_Ptt/TFIDF_SoftJob_Ptt.html)
 
+## Project 1
+
+> Project1: [TF-IDF Project for Tennis player analysis](https://hcwxd.github.io/CSX_RProject_Spring_2018/project_1/TFIDF_Tennis_Player.html)
+
 
 
 
