@@ -30,7 +30,7 @@ data <- list()
 title <- list()
 
 # Crawl PTT tennis board
-for( i in c(1570:1597)){
+for( i in c(1567:1597)){
   tmp <- paste(i, '.html', sep='')
   url <- paste('www.ptt.cc/bbs/Tennis/index', tmp, sep='')
   html <- htmlParse(GET(url),encoding = "UTF-8")
@@ -409,13 +409,6 @@ ggplot(df1, aes(Player,fill = Popularity)) + geom_bar(position="dodge")
 
 
 ## 9.Conclusion
-
-Nadal 
-草地：草地隨緣 
-樹蛙：Schwartzman 狀況好
-
-Fed
-法網：法網失利
 
 
 
